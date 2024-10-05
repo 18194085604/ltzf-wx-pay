@@ -2,6 +2,7 @@ package com.gjy.wxpay;
 
 import com.alibaba.fastjson2.JSON;
 import com.gjy.wxpay.payment.nativepay.INativePayApi;
+import com.gjy.wxpay.payment.nativepay.model.PrepayResponse;
 import com.gjy.wxpay.utils.SignUtils;
 import okhttp3.OkHttpClient;
 import org.junit.Test;
@@ -59,7 +60,7 @@ public class WxPayApplicationTests {
         dataMap.put("timestamp", String.valueOf(timestamp));
         dataMap.put("notify_url", "https://www.baidu.com");
 
-        Call<Object> call = nativePayApi.prepay(
+        Call<PrepayResponse> call = nativePayApi.prepay(
                 dataMap.get("mch_id"),
                 dataMap.get("out_trade_no"),
                 dataMap.get("total_fee"),
@@ -68,7 +69,7 @@ public class WxPayApplicationTests {
                 dataMap.get("notify_url"),
                 SignUtils.createSign(dataMap, "6d3e889f359fcb83d150e9553a9217b9"));
 
-        Response<Object> execute = call.execute();
+        Response<PrepayResponse> execute = call.execute();
         Object body = execute.body();
         log.info("测试结果: {}", JSON.toJSONString(body));
 
