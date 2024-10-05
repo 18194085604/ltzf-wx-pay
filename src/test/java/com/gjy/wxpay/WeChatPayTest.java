@@ -1,6 +1,6 @@
 package com.gjy.wxpay;
 
-import com.gjy.wxpay.payment.nativepay.INativePayApi;
+
 import com.wechat.pay.java.core.Config;
 import com.wechat.pay.java.core.RSAAutoCertificateConfig;
 import com.wechat.pay.java.service.payments.nativepay.NativePayService;

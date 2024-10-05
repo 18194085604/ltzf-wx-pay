@@ -4,6 +4,12 @@ import com.gjy.wxpay.factory.Configuration;
 import com.gjy.wxpay.factory.PayFactory;
 import com.gjy.wxpay.payment.app.AppPayService;
 import com.gjy.wxpay.payment.app.IAppPayApi;
+import com.gjy.wxpay.payment.h5.H5PayService;
+import com.gjy.wxpay.payment.h5.IH5PayApi;
+import com.gjy.wxpay.payment.jsapi.IJSPayApi;
+import com.gjy.wxpay.payment.jsapi.JSPayService;
+import com.gjy.wxpay.payment.jump_h5.IJumpH5PayApi;
+import com.gjy.wxpay.payment.jump_h5.JumpH5PayService;
 import com.gjy.wxpay.payment.nativepay.INativePayApi;
 import com.gjy.wxpay.payment.nativepay.NativePayService;
 import okhttp3.OkHttpClient;
@@ -59,5 +65,47 @@ public class DefaultPayFactory implements PayFactory {
                 .create(IAppPayApi.class);
         // 创建支付服务
         return new AppPayService(configuration, appPayApi);
+    }
+
+    @Override
+    public H5PayService h5PayService() {
+        // 构建API
+        IH5PayApi h5PayApi = new Retrofit.Builder()
+                .baseUrl(configuration.getApiHost())
+                .client(httpClient)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(JacksonConverterFactory.create())
+                .build()
+                .create(IH5PayApi.class);
+        // 创建支付服务
+        return new H5PayService(configuration, h5PayApi);
+    }
+
+    @Override
+    public JSPayService jsPayService() {
+        // 构建API
+        IJSPayApi jsPayApi = new Retrofit.Builder()
+                .baseUrl(configuration.getApiHost())
+                .client(httpClient)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(JacksonConverterFactory.create())
+                .build()
+                .create(IJSPayApi.class);
+        // 创建支付服务
+        return new JSPayService(configuration, jsPayApi);
+    }
+
+    @Override
+    public JumpH5PayService jumpH5PayService() {
+        // 构建API
+        IJumpH5PayApi jumpH5PayApi = new Retrofit.Builder()
+                .baseUrl(configuration.getApiHost())
+                .client(httpClient)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(JacksonConverterFactory.create())
+                .build()
+                .create(IJumpH5PayApi.class);
+        // 创建支付服务
+        return new JumpH5PayService(configuration, jumpH5PayApi);
     }
 }
