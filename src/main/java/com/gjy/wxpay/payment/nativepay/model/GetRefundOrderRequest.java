@@ -1,7 +1,7 @@
 package com.gjy.wxpay.payment.nativepay.model;
 
-import cn.bugstack.ltzf.utils.SignUtils;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.gjy.wxpay.utils.SignUtils;
 import lombok.Data;
 
 import java.util.HashMap;

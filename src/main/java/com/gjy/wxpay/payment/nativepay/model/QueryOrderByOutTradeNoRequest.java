@@ -1,6 +1,6 @@
 package com.gjy.wxpay.payment.nativepay.model;
 
-import cn.bugstack.ltzf.utils.SignUtils;
+import com.gjy.wxpay.utils.SignUtils;
 import lombok.Getter;
 import lombok.Setter;
 
