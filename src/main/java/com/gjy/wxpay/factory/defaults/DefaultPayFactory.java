@@ -2,6 +2,8 @@ package com.gjy.wxpay.factory.defaults;
 
 import com.gjy.wxpay.factory.Configuration;
 import com.gjy.wxpay.factory.PayFactory;
+import com.gjy.wxpay.payment.app.AppPayService;
+import com.gjy.wxpay.payment.app.IAppPayApi;
 import com.gjy.wxpay.payment.nativepay.INativePayApi;
 import com.gjy.wxpay.payment.nativepay.NativePayService;
 import okhttp3.OkHttpClient;
@@ -43,5 +45,19 @@ public class DefaultPayFactory implements PayFactory {
                 .build()
                 .create(INativePayApi.class);
         return new NativePayService(nativePayApi,configuration);
+    }
+
+    @Override
+    public AppPayService appPayService() {
+        // 构建API
+        IAppPayApi appPayApi = new Retrofit.Builder()
+                .baseUrl(configuration.getApiHost())
+                .client(httpClient)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(JacksonConverterFactory.create())
+                .build()
+                .create(IAppPayApi.class);
+        // 创建支付服务
+        return new AppPayService(configuration, appPayApi);
     }
 }

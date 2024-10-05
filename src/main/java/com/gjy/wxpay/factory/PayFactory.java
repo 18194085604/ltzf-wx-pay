@@ -1,5 +1,6 @@
 package com.gjy.wxpay.factory;
 
+import com.gjy.wxpay.payment.app.AppPayService;
 import com.gjy.wxpay.payment.nativepay.NativePayService;
 
 /**
@@ -8,4 +9,7 @@ import com.gjy.wxpay.payment.nativepay.NativePayService;
 public interface PayFactory {
 
     NativePayService nativePayService();
+
+    AppPayService appPayService();
+
 }
